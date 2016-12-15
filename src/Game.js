@@ -18,7 +18,7 @@ Candy.Game.prototype = {
     this.physics.arcade.gravity.y = 200; // set the global gravity
 
     this.add.sprite(0, 0, 'background'); // display images: background, floor and score
-    this.add.sprite(-30, Candy.GAME_HEIGHT - 160, 'floor');
+    this.add.sprite(-30, Candy.GAME_HEIGHT - 160, 'floor'); // GAME_HEIGHT defined in Candy.Preloader() but are available throughout the whole game code
     this.add.sprite(10, 5, 'score-bg');
     this.add.button(Candy.GAME_WIDTH - 96 - 10, 5, 'button-pause', this.managePause, this); // add pause button
 
@@ -34,5 +34,13 @@ Candy.Game.prototype = {
 
     this._candyGroup = this.add.group(); // create new group for candy
     Candy.item.spawnCandy(this); // spawn first candy
+  },
+  managePause: function () {
+    this.game.paused = true; // pause the game
+    var pausedText = this.add.text(100, 250, "Game paused.\nTap anywhere to continue.", this._fontStyle); // add proper informational text
+    this.input.onDown.add(function () { // set event listener for the user's click/tap the screen
+      pausedText.destroy(); // remove the pause text
+      this.game.paused = false; // unpause the game
+    }, this);
   },
 }
