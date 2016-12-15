@@ -84,4 +84,8 @@ Candy.item = { // will be able to access _scoreText, _score, _health, variables 
     Candy._score += 1; // add points to the score
     Candy._scoreText.setText(Candy._score); // update score text // Note: Candy._scoreText is now an object (see line 30). Therefore we need to use the setText function to place text inside this object on the canvas.
   },
+  removeCandy: function (candy) {
+    candy.kill(); // kill the candy
+    Candy._health -= 10; // decrease player's health
+  }
 };
