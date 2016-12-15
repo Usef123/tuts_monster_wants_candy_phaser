@@ -58,3 +58,25 @@ Candy.Game.prototype = {
     }
   }
 };
+
+Candy.item = { // will be able to access _scoreText, _score, _health, variables at the Candy object level 
+  spawnCandy: function (game) {
+    // var dropPos = Math.floor(Math.random() * Candy.GAME_WIDTH); // calculate drop position (from 0 to game width) on the x axis
+    var dropPos = Math.floor(Math.random() * (Candy.GAME_WIDTH - 41 + 1) + 41); // dimension of each image in sprite: width 82 x height 98
+    var dropOffset = [-27, -36, -36, -38, -48]; // define the y offset (from top) for every candy
+    var candyType = Math.floor(Math.random() * 5); // randomize candy type
+    var candy = game.add.sprite(dropPos, dropOffset[candyType], 'candy'); // create new candy
+    // add(name, frames, frameRate, loop, useNumericIndex) → {Phaser.Animation}
+    // frames - An array of numbers/strings that correspond to the frames to add to this animation and in which order. e.g. [1, 2, 3] or ['run0', 'run1', run2]). If null then all frames will be used.
+    candy.animations.add('anim', [candyType], 10, true); // add new animation frame
+    candy.animations.play('anim'); // play the newly created animation
+    game.physics.enable(candy, Phaser.Physics.ARCADE); // enable candy body for physic engine
+    candy.inputEnabled = true; // enable candy to be clicked/tapped
+    candy.events.onInputDown.add(this.clickCandy, this); // add event listener to click/tap
+    candy.checkWorldBounds = true; // be sure that the candy will fire an event when it goes out of the screen
+    candy.events.onOutOfBounds.add(this.removeCandy, this); // reset candy when it goes out of screen
+    candy.anchor.setTo(0.5, 0.5); // set the anchor (for rotation, position etc) to the middle of the candy so that it will spin naturally
+    candy.rotateMe = (Math.random() * 4) - 2; // set the random rotation value
+    game._candyGroup.add(candy); // add candy to the group, access the Candy.Game._candyGroup variable
+  },
+};
