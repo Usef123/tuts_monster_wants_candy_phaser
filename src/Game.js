@@ -79,4 +79,9 @@ Candy.item = { // will be able to access _scoreText, _score, _health, variables 
     candy.rotateMe = (Math.random() * 4) - 2; // set the random rotation value
     game._candyGroup.add(candy); // add candy to the group, access the Candy.Game._candyGroup variable
   },
+  clickCandy: function (candy) {
+    candy.kill(); // kill the candy when it's clicked
+    Candy._score += 1; // add points to the score
+    Candy._scoreText.setText(Candy._score); // update score text // Note: Candy._scoreText is now an object (see line 30). Therefore we need to use the setText function to place text inside this object on the canvas.
+  },
 };
