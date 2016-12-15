@@ -13,7 +13,7 @@ Candy.Game = function (game) {
 };
 
 Candy.Game.prototype = {
-  create: function () {
+  create: function () { // this refers to the Candy.Game object
     this.physics.startSystem(Phaser.Physics.ARCADE); // start the physics engine
     this.physics.arcade.gravity.y = 200; // set the global gravity
 
@@ -43,4 +43,18 @@ Candy.Game.prototype = {
       this.game.paused = false; // unpause the game
     }, this);
   },
-}
+  update: function () { // The update() function name is one of the reserved words in Phaser. When you write a function with that name, it will be executed on every frame of the game. 
+    this._spawnCandyTimer += this.time.elapsed; // update timer every frame
+    if (this._spawnCandyTimer > 1000) { // if spawn timer reach one second (1000 miliseconds)
+      this._spawnCandyTimer = 0; // reset it
+      Candy.item.spawnCandy(this); // and spawn new candy
+    }
+    this._candyGroup.forEach(function (candy) { // loop through all candy on the screen
+      candy.angle += candy.rotateMe; // to rotate them accordingly
+    });
+    if (!Candy._health) { // if the health of the player drops to 0, the player dies = game over
+      this.add.sprite((Candy.GAME_WIDTH - 594) / 2, (Candy.GAME_HEIGHT - 271) / 2, 'game-over'); // show the game over message
+      this.game.paused = true; // pause the game
+    }
+  }
+};
