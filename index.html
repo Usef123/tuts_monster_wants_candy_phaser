@@ -16,14 +16,15 @@
   <script>
     (function () {
       // initialize the framework
+      // Phaser.AUTO informs the framework how we want our game to be rendered to the Canvas, which checks whether WebGL is supported and decide whether the game can be rendered in this context — if it can't, then the 2D Canvas rendering will be used. 
       var game = new Phaser.Game(640, 960, Phaser.AUTO, 'game');
       // add game states
-      game.state.add('Boot', Candy.Boot);
+      game.state.add('Boot', Candy.Boot); // 'Boot' is a state name and Candy.Boot is an object that will be executed when we start that state
       game.state.add('Preloader', Candy.Preloader);
       game.state.add('MainMenu', Candy.MainMenu);
       game.state.add('Game', Candy.Game);
       // start the Boot state
-      game.state.start('Boot');
+      game.state.start('Boot'); // starts the Boot state, so that the proper function from the Candy.Boot object will be executed
     })();
   </script>
 </body>
