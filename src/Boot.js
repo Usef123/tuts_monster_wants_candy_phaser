@@ -1,6 +1,6 @@
 var Candy = {}; // creates a global object for our game. Everything will be stored inside, so we won't bloat the global namespace. 
 
-Candy.Boot = function (game) { };
+Candy.Boot = function (game) { }; // The code Candy.Boot = function(game){} creates a new function called Boot() (used in index.html) which receives the game object as a parameter (also created by the framework in index.html). 
 
 // Our Boot object contains these two functions, so they can be referenced by using Candy.Boot.preload() and Candy.Boot.create(), respectively.
 Candy.Boot.prototype = { // a way to define the contents of Candy.Boot using prototypes
